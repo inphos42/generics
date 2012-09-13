@@ -1,5 +1,5 @@
-#ifndef OSMPBF_REFCOUNTOBJECT_H
-#define OSMPBF_REFCOUNTOBJECT_H
+#ifndef GENERICS_REFCOUNTOBJECT_H
+#define GENERICS_REFCOUNTOBJECT_H
 
 #include <cstdint>
 #include <cassert>

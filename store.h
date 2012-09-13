@@ -1,5 +1,5 @@
-#ifndef OSMVMAP_CREATE_STORE_H
-#define OSMVMAP_CREATE_STORE_H
+#ifndef GENERICS_STORE_H
+#define GENERICS_STORE_H
 
 #include <unordered_map>
 #include <map>
