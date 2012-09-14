@@ -14,6 +14,7 @@ namespace generics {
 		inline void rcDec() { assert(m_rc); m_rc--; if (m_rc < 1) delete this; }
 
 		inline int rc() const { return m_rc; }
+
 	private:
 		RefCountObject(const RefCountObject & other);
 		RefCountObject & operator=(const RefCountObject & other);
@@ -21,7 +22,7 @@ namespace generics {
 		uint32_t m_rc;
 	};
 
-	template<class RCClass>
+	template< class RCClass >
 	class RCWrapper {
 	public:
 		RCWrapper() : m_Private(NULL) {};
@@ -43,7 +44,7 @@ namespace generics {
 		bool operator==(const RCWrapper & other) { return m_Private == other.m_Private; }
 		bool operator!=(const RCWrapper & other) { return m_Private != other.m_Private; }
 
-		inline bool isNull() const { return !m_Private || m_Private->isNull(); }
+		inline bool isNull() const { return !m_Private; }
 
 	protected:
 		RCClass * m_Private;
