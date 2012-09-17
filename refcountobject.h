@@ -25,7 +25,7 @@ namespace generics {
 	template< class RCClass >
 	class RCWrapper {
 	public:
-		RCWrapper() : m_Private(NULL) {};
+		RCWrapper() : m_Private(nullptr) {};
 		RCWrapper(RCClass * data) : m_Private(data) { if (m_Private) m_Private->rcInc(); }
 		RCWrapper(const RCWrapper & other) : m_Private(other.m_Private) { if (m_Private) m_Private->rcInc(); }
 		virtual ~RCWrapper() { if (m_Private) m_Private->rcDec(); }
