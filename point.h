@@ -53,6 +53,11 @@ namespace generics {
 			return *this;
 		}
 
+		inline Point & operator*=(coord_t value) {
+			for (int i = 0 ; i < DIMENSIONS; ++i) coords[i] *= value;
+			return *this;
+		}
+
 		inline void negate() {
 			for (int i = 0 ; i < DIMENSIONS; ++i) coords[i] = -coords[i];
 		}
@@ -92,6 +97,18 @@ namespace generics {
 		return result;
 	}
 
+	template< class coord_t, int DIMENSIONS >
+	inline Point< coord_t, DIMENSIONS > operator*(const Point< coord_t, DIMENSIONS > & a, coord_t b) {
+		Point< coord_t, DIMENSIONS >  result;
+		for (int i = 0 ; i < DIMENSIONS; ++i) result[i] = a[i] * b;
+
+		return result;
+	}
+
+	template< class coord_t, int DIMENSIONS >
+	inline Point< coord_t, DIMENSIONS > operator*(coord_t b, const Point< coord_t, DIMENSIONS > & a) {
+		return operator*< coord_t, DIMENSIONS >(a, b);
+	}
 }
 
 #endif
