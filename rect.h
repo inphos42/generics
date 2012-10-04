@@ -29,7 +29,7 @@ namespace generics {
 			return result;
 		}
 
-		inline bool overlapsRect(const coord_t * other) const {
+		inline bool overlapsRawRect(const coord_t * other) const {
 			for (int d = 0; d < DIMENSIONS; ++d) {
 				if (
 					(bounds[d * 2] > other[d * 2 + 1]) || // left(A) > right(B)
@@ -41,7 +41,7 @@ namespace generics {
 			return true;
 		}
 
-		inline bool overlapsPoint(const coord_t * other) const {
+		inline bool overlapsRawPoint(const coord_t * other) const {
 			for (int d = 0; d < DIMENSIONS; ++d) {
 				if (
 					(bounds[d * 2] > other[d]) ||  // left(A) > coord(B)
@@ -54,11 +54,11 @@ namespace generics {
 		}
 
 		inline bool overlaps(const Rect & other) const {
-			return overlapsRect(other.bounds);
+			return overlapsRawRect(other.bounds);
 		}
 
 		inline bool overlaps(const Point< coord_t, DIMENSIONS > & point) const {
-			return overlapsPoint(point.coords);
+			return overlapsRawPoint(point.coords);
 		}
 
 		inline coord_t edgeLength(int dimension) const {
@@ -121,17 +121,17 @@ namespace generics {
 			}
 		}
 
-		inline static void shift(coord_t * bounds, const Point< coord_t, DIMENSIONS > & vector) {
+		inline static void shift(coord_t * rbounds, const Point< coord_t, DIMENSIONS > & vector) {
 			for (int d = 0; d < DIMENSIONS; ++d) {
-				bounds[d * 2] += vector[d];
-				bounds[d * 2 + 1] += vector[d];
+				rbounds[d * 2] += vector[d];
+				rbounds[d * 2 + 1] += vector[d];
 			}
 		}
 
-		inline static void shiftInv(coord_t * bounds, const Point< coord_t, DIMENSIONS > & vector) {
+		inline static void shiftInv(coord_t * rbounds, const Point< coord_t, DIMENSIONS > & vector) {
 			for (int d = 0; d < DIMENSIONS; ++d) {
-				bounds[d * 2] -= vector[d];
-				bounds[d * 2 + 1] -= vector[d];
+				rbounds[d * 2] -= vector[d];
+				rbounds[d * 2 + 1] -= vector[d];
 			}
 		}
 
@@ -147,7 +147,7 @@ namespace generics {
 		/** WARNING
 		 * Size of raw MUST be equal to MBRSIZE otherwise behavior is undefined
 		 */
-		inline void takeFrom(coord_t raw[]) {
+		inline void takeDataFrom(coord_t raw[]) {
 			delete[] bounds;
 			bounds = raw;
 		}
@@ -160,6 +160,13 @@ namespace generics {
 
 		explicit Rect(const coord_t * raw) : bounds(new coord_t[MBRSIZE]) {
 			for (int i = 0 ; i < MBRSIZE; ++i) bounds[i] = raw[i];
+		}
+
+		explicit Rect(const Point< coord_t, DIMENSIONS > & lowerBound, const Point< coord_t, DIMENSIONS > & upperBound) : bounds(new coord_t[MBRSIZE]) {
+			for (int i = 0 ; i < DIMENSIONS; ++i) {
+				bounds[i * 2] = lowerBound[i];
+				bounds[i * 2 + 1] = upperBound[i];
+			}
 		}
 
 		~Rect() {

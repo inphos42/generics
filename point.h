@@ -12,9 +12,9 @@ namespace generics {
 		return result;
 	}
 
-	template< class coord_t, int DIMENSIONS >
-	inline coord_t eulerDist(coord_t a[], coord_t b[]) {
-		coord_t result = 0;
+	template< class coord_t, int DIMENSIONS, class result_t = double >
+	inline result_t euklidDist(coord_t a[], coord_t b[]) {
+		result_t result = 0;
 		for (int d = 0; d < DIMENSIONS; ++d)
 			result += (b[d] - a[d]) * (b[d] - a[d]);
 		return ::sqrt(result);
@@ -61,8 +61,8 @@ namespace generics {
 			return generics::manhattanDist< coord_t, DIMENSIONS >(coords, other.coords);
 		}
 
-		inline coord_t eulerDist(const Point< coord_t, DIMENSIONS > & other) const {
-			return generics::eulerDist< coord_t, DIMENSIONS >(coords, other.coords);
+		inline coord_t euklidDist(const Point< coord_t, DIMENSIONS > & other) const {
+			return generics::euklidDist< coord_t, DIMENSIONS >(coords, other.coords);
 		}
 
 		Point() : coords(new coord_t[DIMENSIONS]) {}
