@@ -58,6 +58,22 @@ namespace generics {
 			return *this;
 		}
 
+		inline bool operator==(const Point & other) {
+			for (int i = 0 ; i < DIMENSIONS; ++i) {
+				if (other[i] != coords[i])
+					return false;
+			}
+			return true;
+		}
+
+		inline bool operator!=(const Point & other) {
+			for (int i = 0 ; i < DIMENSIONS; ++i) {
+				if (other[i] != coords[i])
+					return true;
+			}
+			return false;
+		}
+
 		inline void negate() {
 			for (int i = 0 ; i < DIMENSIONS; ++i) coords[i] = -coords[i];
 		}
