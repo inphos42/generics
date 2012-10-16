@@ -29,6 +29,15 @@ namespace generics {
 			return result;
 		}
 
+		inline Point< coord_t, DIMENSIONS > center() const {
+			Point< coord_t, DIMENSIONS > result;
+
+			for (int d = 0; d < DIMENSIONS; ++d)
+				result[d] = (bounds[d * 2 + 1] + bounds[d * 2]) / 2;
+
+			return result;
+		}
+
 		inline bool overlapsRawRect(const coord_t * other) const {
 			for (int d = 0; d < DIMENSIONS; ++d) {
 				if (
