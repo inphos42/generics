@@ -38,17 +38,25 @@ namespace generics {
 			return *this;
 		}
 
+		template< class o_coord_t >
+		Point & operator=(const Point< o_coord_t, DIMENSIONS > & other) {
+			for (int i = 0 ; i < DIMENSIONS; ++i) coords[i] = other.coords[i];
+			return *this;
+		}
+
 		Point & operator=(coord_t value) {
 			for (int i = 0 ; i < DIMENSIONS; ++i) coords[i] = value;
 			return *this;
 		}
 
-		inline Point & operator+=(const Point & other) {
+		template< typename o_coord_t >
+		inline Point & operator+=(const Point< o_coord_t, DIMENSIONS > & other) {
 			for (int i = 0 ; i < DIMENSIONS; ++i) coords[i] += other.coords[i];
 			return *this;
 		}
 
-		inline Point & operator-=(const Point & other) {
+		template< typename o_coord_t >
+		inline Point & operator-=(const Point< o_coord_t, DIMENSIONS > & other) {
 			for (int i = 0 ; i < DIMENSIONS; ++i) coords[i] -= other.coords[i];
 			return *this;
 		}
@@ -58,7 +66,8 @@ namespace generics {
 			return *this;
 		}
 
-		inline bool operator==(const Point & other) {
+		template< typename o_coord_t >
+		inline bool operator==(const Point< o_coord_t, DIMENSIONS > & other) {
 			for (int i = 0 ; i < DIMENSIONS; ++i) {
 				if (other[i] != coords[i])
 					return false;
@@ -66,7 +75,8 @@ namespace generics {
 			return true;
 		}
 
-		inline bool operator!=(const Point & other) {
+		template< typename o_coord_t >
+		inline bool operator!=(const Point< o_coord_t, DIMENSIONS > & other) {
 			for (int i = 0 ; i < DIMENSIONS; ++i) {
 				if (other[i] != coords[i])
 					return true;
@@ -78,11 +88,13 @@ namespace generics {
 			for (int i = 0 ; i < DIMENSIONS; ++i) coords[i] = -coords[i];
 		}
 
-		inline coord_t manhattanDist(const Point< coord_t, DIMENSIONS > & other) const {
+		template< typename o_coord_t >
+		inline coord_t manhattanDist(const Point< o_coord_t, DIMENSIONS > & other) const {
 			return generics::manhattanDist< coord_t, DIMENSIONS >(coords, other.coords);
 		}
 
-		inline coord_t euklidDist(const Point< coord_t, DIMENSIONS > & other) const {
+		template< typename o_coord_t >
+		inline coord_t euklidDist(const Point< o_coord_t, DIMENSIONS > & other) const {
 			return generics::euklidDist< coord_t, DIMENSIONS >(coords, other.coords);
 		}
 
@@ -97,34 +109,35 @@ namespace generics {
 		~Point() { delete[] coords; }
 	};
 
-	template< class coord_t, int DIMENSIONS >
-	inline Point< coord_t, DIMENSIONS > operator-(const Point< coord_t, DIMENSIONS > & a, const Point< coord_t, DIMENSIONS > & b) {
-		Point< coord_t, DIMENSIONS > result;
-		for (int i = 0 ; i < DIMENSIONS; ++i) result[i] = a[i] - b[i];
-
-		return result;
-	}
-
-	template< class coord_t, int DIMENSIONS >
-	inline Point< coord_t, DIMENSIONS > operator+(const Point< coord_t, DIMENSIONS > & a, const Point< coord_t, DIMENSIONS > & b) {
+	template< typename coord_t, int DIMENSIONS, typename b_coord_t = coord_t >
+	inline Point< coord_t, DIMENSIONS > operator+(const Point< coord_t, DIMENSIONS > & a, const Point< b_coord_t, DIMENSIONS > & b) {
 		Point< coord_t, DIMENSIONS >  result;
 		for (int i = 0 ; i < DIMENSIONS; ++i) result[i] = a[i] + b[i];
 
 		return result;
 	}
 
-	template< class coord_t, int DIMENSIONS >
-	inline Point< coord_t, DIMENSIONS > operator*(const Point< coord_t, DIMENSIONS > & a, coord_t b) {
+	template< typename coord_t, int DIMENSIONS, typename b_coord_t =coord_t >
+	inline Point< coord_t, DIMENSIONS > operator-(const Point< coord_t, DIMENSIONS > & a, const Point< b_coord_t, DIMENSIONS > & b) {
+		Point< coord_t, DIMENSIONS > result;
+		for (int i = 0 ; i < DIMENSIONS; ++i) result[i] = a[i] - b[i];
+
+		return result;
+	}
+
+	template< typename coord_t, int DIMENSIONS, typename b_coord_t  >
+	inline Point< coord_t, DIMENSIONS > operator*(const Point< coord_t, DIMENSIONS > & a, b_coord_t b) {
 		Point< coord_t, DIMENSIONS >  result;
 		for (int i = 0 ; i < DIMENSIONS; ++i) result[i] = a[i] * b;
 
 		return result;
 	}
 
-	template< class coord_t, int DIMENSIONS >
-	inline Point< coord_t, DIMENSIONS > operator*(coord_t b, const Point< coord_t, DIMENSIONS > & a) {
-		return operator*< coord_t, DIMENSIONS >(a, b);
+	template< typename coord_t, int DIMENSIONS, typename b_coord_t >
+	inline Point< coord_t, DIMENSIONS > operator*(b_coord_t b, const Point< coord_t, DIMENSIONS > & a) {
+		return operator*< coord_t, DIMENSIONS, b_coord_t >(a, b);
 	}
+
 }
 
 #endif
