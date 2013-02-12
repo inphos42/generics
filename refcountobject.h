@@ -1,6 +1,7 @@
 #ifndef GENERICS_REFCOUNTOBJECT_H
 #define GENERICS_REFCOUNTOBJECT_H
 
+#include <cstddef>
 #include <cstdint>
 #include <cassert>
 
@@ -25,7 +26,7 @@ namespace generics {
 	template< class RCClass >
 	class RCWrapper {
 	public:
-		RCWrapper() : m_Private(0) {};
+		RCWrapper() : m_Private(NULL) {};
 		RCWrapper(RCClass * data) : m_Private(data) { if (m_Private) m_Private->rcInc(); }
 		RCWrapper(const RCWrapper & other) : m_Private(other.m_Private) { if (m_Private) m_Private->rcInc(); }
 		virtual ~RCWrapper() { if (m_Private) m_Private->rcDec(); }
