@@ -91,6 +91,21 @@ namespace generics {
 			this->operator++();
 			return oldSelf;
 		}
+		
+		DeltaFieldConstForwardIterator<Element> & operator+=(unsigned int off) const {
+			for(; off >= 1; --off) {
+				operator++();
+			}
+			return *this;
+		}
+		
+		DeltaFieldConstForwardIterator<Element> operator+(unsigned int off) const {
+			DeltaFieldConstForwardIterator<Element> oldSelf = *this;
+			for(; off >= 1; --off) {
+				++oldSelf;
+			}
+			return oldSelf;
+		}
 
 		inline bool isNull() const { return !m_Data; }
 
