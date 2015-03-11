@@ -1,9 +1,10 @@
 #ifndef GENERICS_FIELDITERATOR_H
 #define GENERICS_FIELDITERATOR_H
+#include <iterator>
 
 namespace generics {
 	template<typename Element>
-	class FieldIterator {
+	class FieldIterator: public std::iterator<std::input_iterator_tag, Element, int> {
 	public:
 		FieldIterator() : m_Data(nullptr) {}
 		FieldIterator(Element * data) : m_Data(data) {}
@@ -32,7 +33,7 @@ namespace generics {
 	};
 
 	template<typename Element>
-	class FieldConstIterator {
+	class FieldConstIterator: public std::iterator<std::input_iterator_tag, Element, int> {
 	public:
 		FieldConstIterator() : m_Data(nullptr) {}
 		FieldConstIterator(const Element * data) : m_Data(data) {}
@@ -61,7 +62,7 @@ namespace generics {
 	};
 
 	template<typename Element>
-	class DeltaFieldConstForwardIterator {
+	class DeltaFieldConstForwardIterator: public std::iterator<std::input_iterator_tag, Element, int> {
 	public:
 		DeltaFieldConstForwardIterator() : m_Data(nullptr), m_PreviousSum(0) {}
 		DeltaFieldConstForwardIterator(const Element * data) : m_Data(data), m_PreviousSum(0) {}
