@@ -5,7 +5,7 @@ namespace generics {
 	template<typename Element>
 	class FieldIterator {
 	public:
-		FieldIterator() : m_Data(NULL) {}
+		FieldIterator() : m_Data(nullptr) {}
 		FieldIterator(Element * data) : m_Data(data) {}
 		FieldIterator(const FieldIterator<Element> & other) : m_Data(other.m_Data) {}
 
@@ -34,7 +34,7 @@ namespace generics {
 	template<typename Element>
 	class FieldConstIterator {
 	public:
-		FieldConstIterator() : m_Data(NULL) {}
+		FieldConstIterator() : m_Data(nullptr) {}
 		FieldConstIterator(const Element * data) : m_Data(data) {}
 		FieldConstIterator(const FieldConstIterator<Element> & other) : m_Data(other.m_Data) {}
 
@@ -63,7 +63,7 @@ namespace generics {
 	template<typename Element>
 	class DeltaFieldConstForwardIterator {
 	public:
-		DeltaFieldConstForwardIterator() : m_Data(NULL), m_PreviousSum(0) {}
+		DeltaFieldConstForwardIterator() : m_Data(nullptr), m_PreviousSum(0) {}
 		DeltaFieldConstForwardIterator(const Element * data) : m_Data(data), m_PreviousSum(0) {}
 		DeltaFieldConstForwardIterator(const DeltaFieldConstForwardIterator<Element> & other) :
 			m_Data(other.m_Data), m_PreviousSum(other.m_PreviousSum) {}
