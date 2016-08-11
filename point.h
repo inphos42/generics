@@ -8,7 +8,7 @@ namespace generics {
 	inline coord_t manhattanDist(coord_t a[], coord_t b[]) {
 		coord_t result = 0;
 		for (int d = 0; d < DIMENSIONS; ++d)
-			result += a[d] < b[d] ? b[d] - a[d] : a[d] - b[0];
+			result += a[d] < b[d] ? b[d] - a[d] : a[d] - b[d];
 		return result;
 	}
 
