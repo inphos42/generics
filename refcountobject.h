@@ -69,6 +69,7 @@ namespace generics {
 		typedef void (RCPtr<RCClass>:: * safe_bool_type) ();
 	public:
 		RCPtr() : RCWrapper<RCClass>() {};
+		RCPtr(RCPtr const &) = default;
 		explicit RCPtr(RCClass * data) : RCWrapper<RCClass>(data) {}
 		RCPtr(const RCWrapper<RCClass> & other) : RCWrapper<RCClass>(other) {}
 		virtual ~RCPtr() {}
