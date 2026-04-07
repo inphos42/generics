@@ -4,7 +4,13 @@
 
 namespace generics {
 	template<typename Element>
-	class FieldIterator: public std::iterator<std::input_iterator_tag, Element, int> {
+	class FieldIterator {
+	public:
+		using iterator_category = std::input_iterator_tag;
+		using value_type = Element;
+		using difference_type = ptrdiff_t;
+		using pointer = const value_type*;
+		using reference = const value_type&;
 	public:
 		FieldIterator() : m_Data(nullptr) {}
 		FieldIterator(Element * data) : m_Data(data) {}
@@ -33,7 +39,13 @@ namespace generics {
 	};
 
 	template<typename Element>
-	class FieldConstIterator: public std::iterator<std::input_iterator_tag, Element, int> {
+	class FieldConstIterator {
+	public:
+		using iterator_category = std::input_iterator_tag;
+		using value_type = Element;
+		using difference_type = ptrdiff_t;
+		using pointer = const value_type*;
+		using reference = const value_type&;
 	public:
 		FieldConstIterator() : m_Data(nullptr) {}
 		FieldConstIterator(const Element * data) : m_Data(data) {}
@@ -62,7 +74,13 @@ namespace generics {
 	};
 
 	template<typename Element>
-	class DeltaFieldConstForwardIterator: public std::iterator<std::input_iterator_tag, Element, int> {
+	class DeltaFieldConstForwardIterator {
+	public:
+		using iterator_category = std::input_iterator_tag;
+		using value_type = Element;
+		using difference_type = ptrdiff_t;
+		using pointer = const value_type*;
+		using reference = const value_type&;
 	public:
 		DeltaFieldConstForwardIterator() : m_Data(nullptr), m_PreviousSum(0) {}
 		DeltaFieldConstForwardIterator(const Element * data) : m_Data(data), m_PreviousSum(0) {}
